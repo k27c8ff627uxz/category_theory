@@ -1,0 +1,24 @@
+
+-R src Category
+src/Base/Logic.v
+src/Base/Category.v
+src/Base/Functor.v
+src/Base/NatTran.v
+src/Base/epi_mono.v
+
+src/Instances/Types.v
+src/Instances/Univ/FunctorComp.v
+src/Instances/Univ/NatTranComp.v
+src/Instances/Univ/FunctorCategory.v
+src/Instances/Univ/Cats.v
+src/Instances/Opposite.v
+src/Instances/DiscreteCat.v
+src/Instances/Product/ProductCategory.v
+src/Instances/Product/FunctorCurrying.v
+src/Instances/Product/ProjFunctor.v
+src/Instances/Wide/WideSubCategory.v
+src/Instances/Wide/EpiMonoCategory.v
+src/Instances/FullSubCat/FullSubCategory.v
+src/Instances/Comma/CommaCat.v
+src/Instances/Comma/HomCat.v
+src/Instances/Comma/Slice.v
