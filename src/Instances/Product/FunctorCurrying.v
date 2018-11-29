@@ -2,6 +2,7 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import NatTranComp FunctorCategory Product.ProductCategory.
 
+Set Universe Polymorphism.
 
 (* Currying *)
 Module Currying.

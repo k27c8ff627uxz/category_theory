@@ -2,6 +2,8 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import DiscreteCat Univ.FunctorComp Univ.FunctorCategory Product.ProductCategory Product.FunctorCurrying.
 
+Set Universe Polymorphism.
+
 Section Projection.
 
   Variable C D : Category.
@@ -45,7 +47,7 @@ Proof.
   {
     move => A.
     rewrite /=.
-    rewrite /Currying.Curry.
+    unfold Currying.Curry.
     rewrite /=.
     apply: ToFunctorEq.
     rewrite /=.

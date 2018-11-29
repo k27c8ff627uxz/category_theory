@@ -2,6 +2,8 @@
 From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
+
 Open Scope type_scope.
 
 Program Definition ProductCat (C D : Category) : Category :=

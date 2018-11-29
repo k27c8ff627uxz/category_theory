@@ -3,6 +3,8 @@ From mathcomp Require Import ssreflect.
 Require Import Coq.Logic.FunctionalExtensionality.
 From Category.Base Require Import Logic Category Functor.
 
+Set Universe Polymorphism.
+
 Structure NatTran {C D : Category} (F G : Functor C D) : Type :=
   {
     NApp : forall (X : Obj C), Hom (FApp F X) (FApp G X);

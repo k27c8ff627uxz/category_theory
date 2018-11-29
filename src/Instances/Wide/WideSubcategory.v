@@ -2,6 +2,8 @@ From mathcomp Require Import ssreflect.
 From Coq.Logic Require Export JMeq EqdepFacts.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
+
 Section WideSubcategory.
 
   Context {C : Category}.

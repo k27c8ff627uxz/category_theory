@@ -3,6 +3,8 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import Univ.FunctorComp Comma.CommaCat.
 
+Set Universe Polymorphism.
+
 Definition HomCat (C : Category) : Category := CommaCat (IdFunctor C) (IdFunctor C).
 
 Definition ToHomCat {C : Category} {X Y : Obj C} (f : Hom X Y) : Obj (HomCat C) :=

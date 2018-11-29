@@ -3,6 +3,8 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran epi_mono.
 From Category.Instances Require Import Wide.WideSubCategory.
 
+Set Universe Polymorphism.
+
 Program Definition EpiCategory (C : Category) : Category :=
   WideSubcategory (fun (X Y : Obj C) => fun (f : Hom X Y) => epi f) _.
 Next Obligation.

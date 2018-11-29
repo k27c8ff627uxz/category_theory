@@ -1,6 +1,8 @@
 From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
+
 Program Definition IdFunctor (C : Category) : Functor C C :=
   {|
     FApp := fun X => X;

@@ -6,6 +6,8 @@ Require Import Coq.Relations.Relation_Definitions.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import Univ.NatTranComp.
 
+Set Universe Polymorphism.
+
 Program Definition FunctorCategory (C D : Category) : Category :=
   {|
     Obj := Functor C D;
@@ -77,13 +79,13 @@ Section NaturalEquivalence.
     move => NApp2_cond.
     set (Build_NatTran _ _ _ _ NApp2 NApp2_cond) as N2.
     exists N2.
-    split; rewrite /=; apply ToNatTranEq; rewrite /NatTran_Vertical_Comp /=; apply: functional_extensionality_dep; move => X; move: (ispair X); case; by [].
+    split; rewrite /=; apply ToNatTranEq; unfold NatTran_Vertical_Comp; rewrite /=; apply: functional_extensionality_dep; move => X; move: (ispair X); case; by [].
   Qed.
 
   Lemma OfNaturalEquivalence : forall N1,
       NaturalEquivalence N1 -> (forall X, isomorphism (NApp N1 X)).
   Proof.
-    rewrite /NaturalEquivalence.
+    unfold NaturalEquivalence.
     move => N1.
     move => [N2 [eqN21 eqN12]].
     move => X.

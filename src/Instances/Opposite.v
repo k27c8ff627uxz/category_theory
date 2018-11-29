@@ -2,6 +2,7 @@
 From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
 
 Program Definition OppositeCat (C : Category) : Category :=
   {|

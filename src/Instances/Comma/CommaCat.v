@@ -1,6 +1,8 @@
 From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
+
 Module Comma.
 
   Section CommaSection.
@@ -94,33 +96,43 @@ Section Definitions.
   Proof.
     apply: Comma.Tohom_eq.
     {
-      rewrite /Comma.comp /Comma.hom_fst /=.
+      unfold Comma.comp.
+      unfold Comma.hom_fst.
+      rewrite /=.
       exact: Hom_assoc.
     } {
-      rewrite /Comma.comp /Comma.hom_snd /=.
+      unfold Comma.comp.
+      unfold Comma.hom_fst.
+      rewrite /=.
       exact: Hom_assoc.
     }
   Qed.
   Next Obligation.
   Proof.
-    rewrite /Comma.id /Comma.comp.
+    unfold Comma.id.
+    unfold Comma.comp.
     apply: Comma.Tohom_eq.
     {
-      rewrite /Comma.hom_fst /=.
+      unfold Comma.hom_fst.
+      rewrite /=.
       exact: Hom_IdL.
     } {
-      rewrite /Comma.hom_snd /=.
+      unfold Comma.hom_snd.
+      rewrite /=.
       exact: Hom_IdL.
     }
   Qed.
   Next Obligation.
-    rewrite /Comma.id /Comma.comp.
+    unfold Comma.id.
+    unfold Comma.comp.
     apply: Comma.Tohom_eq.
     {
-      rewrite /Comma.hom_fst /=.
+      unfold Comma.hom_fst.
+      rewrite /=.
       exact: Hom_IdR.
     } {
-      rewrite /Comma.hom_snd /=.
+      unfold Comma.hom_snd.
+      rewrite /=.
       exact: Hom_IdR.
     }
   Qed.
@@ -144,4 +156,3 @@ Section Definitions.
 End Definitions.
 
 Global Arguments CommaCat {C D E} (F G).
-

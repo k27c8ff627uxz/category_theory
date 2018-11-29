@@ -1,6 +1,8 @@
 From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 
+Set Universe Polymorphism.
+
 Program Definition FullSubCat (C : Category) (P : Obj C -> Prop) : Category :=
   {|
     Obj := { X : Obj C | P X };

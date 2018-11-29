@@ -2,6 +2,8 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import Univ.FunctorComp.
 
+Set Universe Polymorphism.
+
 Program Definition NatTran_Id {C D : Category} (F : Functor C D) : NatTran F F :=
   {|
     NApp := fun (X : Obj C) => \Id (FApp F X)

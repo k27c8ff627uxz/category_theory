@@ -3,6 +3,8 @@ From mathcomp Require Import ssreflect.
 From Category.Base Require Import Logic Category Functor NatTran.
 From Category.Instances Require Import Univ.FunctorComp.
 
+Set Universe Polymorphism.
+
 Program Definition Cats : Category :=
   {|
     Obj := Category;

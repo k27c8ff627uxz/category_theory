@@ -5,6 +5,8 @@ From Category.Base Require Import Logic Category.
 
 Open Scope equiv_scope.
 
+Set Universe Polymorphism.
+
 Structure Functor (C D : Category) : Type :=
   {
     FApp : Obj C -> Obj D;
