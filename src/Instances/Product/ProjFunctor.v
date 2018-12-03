@@ -37,13 +37,13 @@ Proof.
   reflexivity.
 Qed.  
   
-Lemma ConstFunctor (C D : Category) :
-  ConstFunctor C D = FunctorCurrying (ProjFunc1 C D).
+Lemma Curry_to_ConstFunctor (C D : Category) :
+  ToConstFunctor D C = FunctorCurrying (ProjFunc1 C D).
 Proof.
   apply: ToFunctorEq.
   move => X Y f.
   unfold Hom_eq'.
-  have: (forall A, FApp (ConstFunctor C D) A = FApp (FunctorCurrying (ProjFunc1 C D)) A).
+  have: (forall A, FApp (ToConstFunctor D C) A = FApp (FunctorCurrying (ProjFunc1 C D)) A).
   {
     move => A.
     rewrite /=.

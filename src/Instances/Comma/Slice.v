@@ -7,11 +7,11 @@ Set Universe Polymorphism.
 Definition SliceCat {C : Category} (X : Obj C) : Category :=
   CommaCat
     (IdFunctor C)
-    (FApp (ConstFunctor C Cat1) X)
+    (ConstFunctor Cat1 X)
 .
 
 Definition CosliceCat {C : Category} (X : Obj C) : Category :=
   CommaCat
-    (FApp (ConstFunctor C Cat1) X)
+    (ConstFunctor Cat1 X)
     (IdFunctor C)
 .

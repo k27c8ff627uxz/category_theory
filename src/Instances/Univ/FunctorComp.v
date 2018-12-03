@@ -3,6 +3,17 @@ From Category.Base Require Import Logic Category Functor NatTran.
 
 Set Universe Polymorphism.
 
+Program Definition ConstFunctor {D : Category} (C : Category) (a : Obj D) : Functor C D :=
+  {|
+    FApp := fun X => a;
+    FAppH := fun X Y => fun f => \Id a
+  |}.
+Next Obligation.
+Proof.
+  rewrite Hom_IdL.
+  reflexivity.
+Qed.
+
 Program Definition IdFunctor (C : Category) : Functor C C :=
   {|
     FApp := fun X => X;

@@ -4,7 +4,7 @@ Require Import Coq.Logic.FunctionalExtensionality.
 Require Import Coq.Classes.SetoidClass.
 Require Import Coq.Relations.Relation_Definitions.
 From Category.Base Require Import Logic Category Functor NatTran.
-From Category.Instances Require Import Univ.NatTranComp.
+From Category.Instances Require Import Univ.FunctorComp Univ.NatTranComp.
 
 Set Universe Polymorphism.
 
@@ -114,22 +114,14 @@ Proof.
 Qed.
   
 
-Program Definition ConstFunctor (C D : Category) : Functor C (FunctorCategory D C) :=
+Program Definition ToConstFunctor (C D : Category) : Functor D (FunctorCategory C D) :=
   {|
-    FApp := fun (X : Obj C) =>
-             {|
-               FApp := fun (Y : Obj D) => X;
-               FAppH := fun Y1 Y2 => fun f => \Id X
-             |};
+    FApp := fun (X : Obj D) => ConstFunctor C X;
     FAppH := fun X1 X2 => fun f =>
                             {|
                               NApp := fun Y => f
                             |}
   |}.
-Next Obligation.
-Proof.
-  by rewrite Hom_IdL.
-Qed.
 Next Obligation.
   rewrite Hom_IdL.
   rewrite Hom_IdR.
