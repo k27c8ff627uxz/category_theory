@@ -35,6 +35,16 @@ Proof.
   exact: p_proof_irrelevance_jmeq.
 Qed.
 
+Lemma eq_exist_eq : forall {A} (P : A -> Prop) (a1 a2 : A) (prf1 : P a1) (prf2 : P a2),
+    a1 = a2 -> exist P a1 prf1 = exist P a2 prf2.
+Proof.
+  move => A P a1 a2 prf1 prf2 eqa.
+  subst.
+  rewrite(_ : prf1 = prf2).
+  reflexivity.
+  exact: p_proof_irrelevance.
+Qed.
+
 Axiom
   dependent_unique_choice :
     forall (A:Type) (B:A -> Type) (R:forall x:A, B x -> Prop),

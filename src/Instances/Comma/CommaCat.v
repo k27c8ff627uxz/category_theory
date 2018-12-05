@@ -139,7 +139,7 @@ Section Definitions.
 
   Definition CommaDom (f : Obj CommaCat) : Obj C := Comma.dom F G f.
   Definition CommaCodom (f : Obj CommaCat) : Obj D := Comma.codom F G f.
-  Definition ToArrow (f : Obj CommaCat) : Hom (FApp F (CommaDom f)) (FApp G (CommaCodom f)) := Comma.arrow F G f.
+  Definition OfCommaObj (f : Obj CommaCat) : Hom (FApp F (CommaDom f)) (FApp G (CommaCodom f)) := Comma.arrow F G f.
   Definition CommaHom_fst {f1 f2 : Obj CommaCat} (hh : Hom f1 f2) : Hom (CommaDom f1) (CommaDom f2) := Comma.hom_fst F G hh.
   Definition CommaHom_snd {f1 f2 : Obj CommaCat} (hh : Hom f1 f2) : Hom (CommaCodom f1) (CommaCodom f2) := Comma.hom_snd F G hh.
   Lemma ToCommaHomEq :
@@ -156,3 +156,85 @@ Section Definitions.
 End Definitions.
 
 Global Arguments CommaCat {C D E} (F G).
+
+Definition ToCommaObj
+           {C D E}
+           (F : Functor C E) (G : Functor D E)
+           (X : Obj C) (Y : Obj D) (f : Hom (FApp F X) (FApp G Y))
+  : Obj (CommaCat F G) :=
+  existT _ (pair X Y) f.
+
+Lemma Eq_ToCommaObj
+      {C D E}
+      (F : Functor C E) (G : Functor D E) :
+  forall (h : Obj (CommaCat F G)),
+    h = (ToCommaObj F G (CommaDom h) (CommaCodom h) (OfCommaObj h)).
+Proof.
+  rewrite /=.
+  unfold ToCommaObj, CommaDom, CommaCodom, OfCommaObj.
+  unfold Comma.dom, Comma.codom, Comma.arrow.
+  case.
+  case.
+  simpl.
+  move => X Y p.
+  reflexivity.
+Qed.
+
+Definition ToCommaHomCond
+           {C D E}
+           {F : Functor C E} {G : Functor D E}
+           {X1 X2 : Obj C} {Y1 Y2 : Obj D}
+           (h1 : Hom (FApp F X1) (FApp G Y1)) (h2 : Hom (FApp F X2) (FApp G Y2))
+           (f : Hom X1 X2) (g : Hom Y1 Y2) :=
+  (FAppH G g) \o h1 = h2 \o (FAppH F f).
+
+Definition ToCommaHom
+           {C D E}
+           {F : Functor C E} {G : Functor D E}
+           {X1 X2 : Obj C} {Y1 Y2 : Obj D}
+           (h1 : Hom (FApp F X1) (FApp G Y1)) (h2 : Hom (FApp F X2) (FApp G Y2))
+           (f : Hom X1 X2) (g : Hom Y1 Y2)
+           (cond : ToCommaHomCond h1 h2 f g)
+  : Hom (ToCommaObj F G X1 Y1 h1) (ToCommaObj F G X2 Y2 h2) :=
+  exist _ (pair f g) cond.
+
+Definition ToCommaHom'Cond
+           {C D E}
+           {F : Functor C E} {G : Functor D E}
+           (h1 h2 : Obj (CommaCat F G))
+           (f : Hom (CommaDom h1) (CommaDom h2))
+           (g : Hom (CommaCodom h1) (CommaCodom h2)) :=
+  (FAppH G g) \o (OfCommaObj h1) = (OfCommaObj h2) \o (FAppH F f).
+
+Definition ToCommaHom'
+           {C D E}
+           {F : Functor C E} {G : Functor D E}
+           (h1 h2 : Obj (CommaCat F G))
+           (f : Hom (CommaDom h1) (CommaDom h2))
+           (g : Hom (CommaCodom h1) (CommaCodom h2))
+           (cond : ToCommaHom'Cond h1 h2 f g)
+  : Hom h1 h2 :=
+  exist _ (pair f g) cond.
+
+Lemma CommaHom_Cond
+      {C D E}
+      {F : Functor C E} {G : Functor D E}
+      {X1 X2 : Obj C} {Y1 Y2 : Obj D}
+      {f1 : Hom (FApp F X1) (FApp G Y1)}
+      {f2 : Hom (FApp F X2) (FApp G Y2)} :
+  forall (ff : Hom (ToCommaObj F G X1 Y1 f1) (ToCommaObj F G X2 Y2 f2)),
+    (FAppH G (CommaHom_snd ff)) \o f1 = f2 \o (FAppH F (CommaHom_fst ff)).
+Proof.
+  case.
+  case.
+  unfold Comma.dom.
+  unfold Comma.codom.
+  simpl.
+  move => h1 h2 cond.
+  unfold CommaHom_fst.
+  unfold CommaHom_snd.
+  unfold Comma.hom_fst.
+  unfold Comma.hom_snd.
+  simpl.
+  assumption.
+Qed.

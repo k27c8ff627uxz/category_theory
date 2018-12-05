@@ -20,5 +20,6 @@ src/Instances/Wide/WideSubCategory.v
 src/Instances/Wide/EpiMonoCategory.v
 src/Instances/FullSubCat/FullSubCategory.v
 src/Instances/Comma/CommaCat.v
+src/Instances/Comma/CommaLR.v
 src/Instances/Comma/HomCat.v
 src/Instances/Comma/Slice.v
