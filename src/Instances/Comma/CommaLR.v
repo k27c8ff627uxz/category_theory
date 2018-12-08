@@ -10,6 +10,15 @@ Section CommaRight.
   
   Definition CommaR (A : Obj C) (F : Functor D C) :=
     CommaCat (ConstFunctor Cat1 A) F.
+
+  Lemma CommaRDom_eq :
+    forall {A : Obj C} {F : Functor D C},
+    forall (f1 f2 : Obj (CommaR A F)),
+      CommaDom f1 = CommaDom f2.
+  Proof.
+    move => A F f1 f2.
+    exact: Cat1Obj_eq.
+  Qed.
   
   Definition CommaRCodom
              {A : Obj C} {F : Functor D C}
@@ -64,6 +73,30 @@ Section CommaRight.
     reflexivity.
   Qed.
 
+  Definition ToCommaRHom'Cond
+          {A : Obj C} {F : Functor D C}
+          (h1 h2 : Obj (CommaR A F))
+          (f : Hom (CommaRCodom h1) (CommaRCodom h2)) :=
+    OfCommaRObj h2 = (FAppH F f) \o OfCommaRObj h1.
+
+  Program Definition ToCommaRHom'
+          {A : Obj C} {F : Functor D C}
+          (h1 h2 : Obj (CommaR A F))
+          (f : Hom (CommaRCodom h1) (CommaRCodom h2))
+          (cond : ToCommaRHom'Cond h1 h2 f)
+    : Hom h1 h2 :=
+    ToCommaHom' h1 h2 (HomId' (CommaRDom_eq h1 h2)) f _.
+  Next Obligation.
+  Proof.
+    move: cond.
+    unfold ToCommaHom'Cond.
+    unfold ToCommaRHom'Cond.
+    move =><-.
+    simpl.
+    rewrite Hom_IdR.
+    reflexivity.
+  Qed.
+
   Definition CommaRHom_snd
              {A : Obj C} {F : Functor D C}
              {f1 f2 : Obj (CommaR A F)} (hh : Hom f1 f2)
@@ -112,6 +145,15 @@ Section CommaLeft.
              {F : Functor D C} {A : Obj C}
              (f : Obj (CommaL F A)) : Obj D := CommaDom f.
   
+  Lemma CommaLCodom_eq :
+    forall {F : Functor D C} {A : Obj C},
+    forall (f1 f2 : Obj (CommaL F A)),
+      CommaCodom f1 = CommaCodom f2.
+  Proof.
+    move => A F f1 f2.
+    exact: Cat1Obj_eq.
+  Qed.
+
   Definition OfCommaLObj
              {F : Functor D C} {A : Obj C}
              (f : Obj (CommaL F A)) : Hom (FApp F (CommaLDom f)) A :=
@@ -165,6 +207,30 @@ Section CommaLeft.
   Next Obligation.
   Proof.
     move: cond =>->.
+    rewrite Hom_IdL.
+    reflexivity.
+  Qed.
+
+  Definition ToCommaLHom'Cond
+          {F : Functor D C} {A : Obj C}
+          (h1 h2 : Obj (CommaL F A))
+          (f : Hom (CommaLDom h1) (CommaLDom h2)) :=
+    OfCommaLObj h1 = (OfCommaLObj h2) \o (FAppH F f).
+
+  Program Definition ToCommaLHom'
+          {A : Obj C} {F : Functor D C}
+          (h1 h2 : Obj (CommaL F A))
+          (f : Hom (CommaLDom h1) (CommaLDom h2))
+          (cond : ToCommaLHom'Cond h1 h2 f)
+    : Hom h1 h2 :=
+    ToCommaHom' h1 h2 f (HomId' (CommaLCodom_eq h1 h2)) _.
+  Next Obligation.
+  Proof.
+    move: cond.
+    unfold ToCommaHom'Cond.
+    unfold ToCommaLHom'Cond.
+    move =><-.
+    simpl.
     rewrite Hom_IdL.
     reflexivity.
   Qed.
